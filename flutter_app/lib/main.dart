@@ -4,19 +4,24 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Flutter Demo for ListView',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo, brightness: Brightness.light),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomeScreen(),
+      home:  Scaffold(
+        appBar: AppBar(
+          title: const Text('Flutter Demo'),
+        ),
+        body: const MyApp1(items: ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 10" ]),
+      ),
     );
   }
 }
@@ -85,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Text(
                   '$_counter',
                   style: const TextStyle(
-                    fontSize: 48,
+                    fontSize: 58,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
@@ -107,6 +112,31 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+} 
+
+class MyApp1 extends StatelessWidget {
+  final List<String> items;
+
+  const MyApp1({super.key, required this.items});
+
+  @override
+  Widget build(BuildContext context) {
+    const title = 'Long List';
+
+    return MaterialApp(
+      title: title,
+      home: Scaffold(
+        appBar: AppBar(title: const Text(title)),
+        body: ListView.builder(
+          itemCount: items.length,
+          prototypeItem: ListTile(title: Text(items.first)),
+          itemBuilder: (context, index) {
+            return ListTile(title: Text(items[index]));
+          },
         ),
       ),
     );
